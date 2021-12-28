@@ -1,0 +1,20 @@
+version: '3'
+services:
+  prometheus: 
+    image: azuki774/remo-exporter
+    container_name: remo-exporter
+    ports:
+      - 9999:80
+    env_file:
+    - token.env
+
+  api: 
+    image: azuki774/remo-manager
+    container_name: remo-manager
+    ports:
+      - 8800:80
+    environment:
+      - API_ENV=prd
+      # - API_ENV=dev
+    env_file:
+    - token.env

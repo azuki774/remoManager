@@ -1,0 +1,16 @@
+FROM golang:1.17.0-alpine3.14 as builder
+LABEL description="remoManager : Nature Remo API wrapper"
+
+COPY cmd/ /app/cmd/
+COPY internal/ /app/internal/
+COPY go.mod /app/go.mod
+WORKDIR /app
+RUN go mod tidy && go build -o /app/cmd/remoManager/remoManager /app/cmd/remoManager/main.go
+
+FROM alpine:3.14
+RUN apk add curl
+COPY --from=builder /app/cmd/remoManager/remoManager /remoManager
+COPY script/getDevices.sh /getDevices.sh
+ENTRYPOINT ["/remoManager"]
+
+EXPOSE 80
