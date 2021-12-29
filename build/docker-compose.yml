@@ -7,6 +7,11 @@ services:
       - 9999:80
     env_file:
     - token.env
+    logging:
+      driver: json-file
+      options:
+        max-file: '1'
+        max-size: 3m
 
   api: 
     image: azuki774/remo-manager
@@ -18,3 +23,8 @@ services:
       # - API_ENV=dev
     env_file:
     - token.env
+    logging:
+      driver: json-file
+      options:
+        max-file: '1'
+        max-size: 3m

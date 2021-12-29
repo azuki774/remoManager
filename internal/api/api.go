@@ -3,11 +3,11 @@ package api
 import "time"
 
 type SensorValues struct {
-	Hu     int
-	Il     int
-	Mo     int
-	Te     float64
-	Update time.Time
+	Hu     int       `json:"hu"`
+	Il     int       `json:"il"`
+	Mo     int       `json:"mo"`
+	Te     float64   `json:"te"`
+	Update time.Time `json:"update"`
 }
 
 type SensorJson []struct {
