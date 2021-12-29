@@ -1,3 +1,4 @@
+# Remo Manager
 Nature Remo Cloud API を用いて、Prometheus上にデータを展開するプログラム。
 Nature Remo Cloud APIのアクセスリミットに対応し、1分間に1度だけデータを更新する。
 
