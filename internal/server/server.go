@@ -17,15 +17,15 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getSensorHandler(w http.ResponseWriter, r *http.Request) {
-	logger.AccessInfoPrint("/sensor", "GET", r.Header.Get("X-Forwarded-For"))
+	logger.AccessDebugPrint("/sensor", "GET", r.Header.Get("X-Forwarded-For"))
 	outputStruct := api.GetSensorValues()
-	outputJson, err := json.Marshal(outputStruct)
+	outputJson, err := json.Marshal(&outputStruct)
 	if err != nil {
 		logrus.Errorf("Json Marshal error : %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprint(w, outputJson)
+	fmt.Fprint(w, string(outputJson))
 }
 
 func ServerStart() (err error) {
