@@ -12,6 +12,9 @@ services:
       options:
         max-file: '1'
         max-size: 3m
+    restart: always
+    depends_on:
+    - "remo-manager"
 
   api: 
     image: azuki774/remo-manager

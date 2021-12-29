@@ -1,9 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"remoManager/internal/exporter"
+	"remoManager/internal/logger"
 )
 
 func main() {
-	fmt.Println("remoExporter start")
+	logger.InfoPrint("remoManager start")
+	go exporter.GetSensorValueRoutine()
+	exporter.ServerStart()
 }

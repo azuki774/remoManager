@@ -20,6 +20,14 @@ func AccessInfoPrint(url string, method string, clientIP string) {
 	}).Info("API Access")
 }
 
+func AccessDebugPrint(url string, method string, clientIP string) {
+	logrus.WithFields(logrus.Fields{
+		"url":      url,
+		"method":   method,
+		"clientIP": clientIP,
+	}).Info("API Access")
+}
+
 func InfoPrint(content string) {
 	logrus.Info(content)
 }
