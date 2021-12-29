@@ -24,6 +24,21 @@ var (
 		Name:      "room_temperature",
 		Help:      "room temperature",
 	})
+	roomMotion = prometheus.NewGauge(prometheus.GaugeOpts{
+		Namespace: namespace,
+		Name:      "room_motion",
+		Help:      "room motion sensor",
+	})
+	roomIllumi = prometheus.NewGauge(prometheus.GaugeOpts{
+		Namespace: namespace,
+		Name:      "room_illuminance",
+		Help:      "room illuminance",
+	})
+	roomHumid = prometheus.NewGauge(prometheus.GaugeOpts{
+		Namespace: namespace,
+		Name:      "room_humidity",
+		Help:      "room humidity",
+	})
 )
 
 func GetSensorValueRoutine() {
@@ -53,10 +68,20 @@ func GetSensorValueRoutine() {
 
 func refreshSensorValue(body []byte) {
 	var inputJson api.SensorValues
-	_ = json.Unmarshal(body, &inputJson)
+	err := json.Unmarshal(body, &inputJson)
+	if err != nil {
+		logrus.Errorf("refresh json error")
+	}
+
 	roomTemp.Set(inputJson.Te)
+	roomIllumi.Set(float64(inputJson.Il))
+	roomMotion.Set(float64(inputJson.Mo))
+	roomHumid.Set(float64(inputJson.Hu))
 }
 
 func init() {
 	prometheus.MustRegister(roomTemp)
+	prometheus.MustRegister(roomIllumi)
+	prometheus.MustRegister(roomMotion)
+	prometheus.MustRegister(roomHumid)
 }
